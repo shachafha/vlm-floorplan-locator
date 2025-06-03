@@ -49,14 +49,19 @@ Python packages:
 
 ```bash
 pip install ollama tiktoken
+```
 
 Ollama setup:
+```
 ollama pull llava
+```
 
 ## Installation
 Clone this repository:
+```
 git clone https://github.com/shachafha/vlm-floorplan-locator.git
 cd vlm-floorplan-locator
+```
 
 
 ## Notes
