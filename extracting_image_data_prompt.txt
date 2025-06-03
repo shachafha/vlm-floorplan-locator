@@ -1,0 +1,39 @@
+I am going to show you a photograph taken somewhere on the 700-level floor of the Schapiro CEP SR building. Your job is to extract every relevant visual cue from this image—orientation, nearby objects, signage, architectural features, etc.—so that, later on, I can place this photo precisely on my grid-overlaid floor plan.
+
+Here is what I need you to output, in JSON format. Make each value as specific as possible, and include as many details as are visible in the photo:
+
+{
+  "view_type":         <“corridor” | “room doorway” | “wall view” | “stairwell” | “elevator lobby” | “unknown”>,
+  "primary_landmarks": [
+    {
+      "type":           <“door” | “bulletin_board” | “trash_bin” | “sign” | “elev_button” | “wall_feature” | “floor_pattern” | “unknown”>,
+      "description":    <e.g. “gray door with ADA button and sign ‘PRESS TO OPERATE DOOR’”>,
+      "relative_position": <“left” | “right” | “center” | “background” | “foreground”>,
+      "any_text":       <any legible text, such as room number, sign copy, bulletin heading, etc. or empty if none>
+    },
+    {
+      "type":           … (list multiple items)
+    },
+    …
+  ],
+  "floor_pattern":     < “plain tile” | “carpet” | “parquet” | “black-white checker tile” | “unknown”>,
+  "lighting_ceiling":  <“fluorescent ceiling panels” | “recessed lights” | “natural light source” | “unknown”>,
+  "wall_color":        <“white” | “light gray” | “purple accent strip” | “unknown”>,
+  "additional_notes":  <any other visual detail that might help locate this photo, e.g. “purple ceiling beam visible at top,” “cluster of magnetic poetry words on the door,” “no window in door,” etc.>
+  "image_summary":      <a description of the overall scene>
+}
+
+**Instructions:**
+1. **view_type**: Decide whether the photo is looking down a corridor, into or at a room entrance, at a blank wall (possibly an elevator lobby), etc.
+2. **primary_landmarks**:
+   – List every object or feature that can serve as an anchor: doors (and any labels or badges on them), bulletin boards (and any flyers or headings), trash bins, ADA push-buttons, directional signs, ceiling beams, fire alarms, etc.
+   – For each, specify roughly where it appears in the frame (left/right/center/background/foreground) and copy any text you can read.
+3. **floor_pattern**: Note if the flooring is a black-white checker pattern (common on the main corridor), plain tile, or any other distinctive flooring.
+4. **lighting_ceiling**: Describe the visible ceiling lights—panels, spotlights, any damage or discoloration.
+5. **wall_color**: For each wall surface you see, name its color (e.g. white paint, light gray paint, purple accent beam).
+6. **additional_notes**: Anything else—scratches, rust, scuff marks, posters, magnets on the door—whatever might help later match this vantage to the 700-level blueprint.
+7. **image_summary**: Provide a description of the overall scene, summarizing the key visual elements and context.
+
+Fill in every JSON field above as completely as possible. If something is entirely out of frame or unidentifiable, you can use “unknown.” Once you give me this JSON, I will compare those details to my floor plan grid to figure out exactly where on the 700-level it must have been taken.
+
+**Here is the image:**

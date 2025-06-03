@@ -1,0 +1,67 @@
+I am providing you with:
+
+1. **Floor Plan Image**
+   [FLOOR_PLAN_IMAGE]
+   - The plan shows a 14-column × 7-row grid of “nodes” (1–14 across, 0–6 vertically), labeled corridors, rooms, benches, water fountains, stairwells, etc.
+
+2. **Full Textual Metadata (JSON) for Each Node**
+   [NODE_METADATA_JSON]
+
+3. **Query Image**
+   [QUERY_IMAGE]
+
+4. **Destination Location Specification**
+   I also want **step-by-step walking directions** from wherever the query image was taken to **[DESTINATION]** on the same floor.
+   **These directions are intended for a blind person, so please use clear “turn left,” “turn right,” and “walk straight” language. Do not mention any “node” numbers—those are only for research and are not labeled on the actual floor. Instead, guide the person by doors, signs, water fountains, benches, corridor intersections, and other real landmarks that exist physically.**
+
+---
+
+## Your Task
+
+1. **Identify Where the Query Image Was Taken**
+   - Use the floor plan image and the metadata for all nodes.
+   - Compare visible landmarks in the query image (floor pattern, ceiling beams, door colors or numbers, bins, water fountains, signage, benches, etc.) to each node’s description.
+   - If the photo exactly matches one node’s `location` and facing direction, state that node number for research purposes only.
+   - If it falls between two (or more) nodes, describe its approximate position in terms of grid coordinates or nearest corridors/doors. For example:
+     - “Between Column 6 and 7, in Row 3—midway down the long corridor.”
+     - “Just south of the elevator alcove, about one door past the water fountain.”
+
+2. **Structure Your Answer Exactly as Follows**
+   - **Answer:**
+     - **Identified Location:**
+       - If it is exactly a node, write “Node X (facing Y).”
+       - If it is not exactly a node, write “Approximate grid position: Column __, Row __; nearest reference points: ….”
+     - **Facing Direction:**
+       - “North / South / East / West” as deduced from ceiling lights, exit signs, door orientation, etc.
+
+   - **Reasoning:**
+     1. **Floor Pattern Check:** Describe how the floor in the photo matches nodes A, B, etc.
+     2. **Ceiling & Lighting:** Note any purple accent beam, fluorescent panels, recessed lights, etc., and which nodes contain that feature.
+     3. **Wall/Signage/Doors:** Match any visible door colors or room numbers/signs to the node metadata.
+     4. **Special Fixtures (Bins, Water Fountain, Benches):** Point out exactly which node description includes those items.
+     5. **Spatial Layout (Corridor vs. Alcove vs. Room Entrance):** Confirm how corridor shape and adjacent walls line up with the plan.
+
+   - **Fastest Route to [DESTINATION]:**
+     - State the destination name or number exactly as given in section 4.
+     - Give a bullet‐by‐bullet walking path from the identified location to that destination, staying on the same floor. Because these instructions are for a blind person, use clear “turn left,” “turn right,” and “walk straight” conventions, and reference only **real landmarks** (doors, signs, water fountains, benches, corridor intersections, etc.).
+       - **Do not mention “Node X” or any node numbers** in your instructions.
+       - For example:
+         - “Exit the doorway, then walk straight down until you hear the water fountain on your right; turn right immediately after the fountain.”
+         - “Continue forward until you pass two doors on your left (Room 712 then Room 713), then turn left at the purple ceiling beam.”
+         - “After walking three steps, you will arrive at the glass‐paneled door for Room 715 on your right.”
+       - If the destination is not exactly a door (for instance, a restroom or an open alcove), say: “From the nearest door to Room 715, walk two paces north until you reach the restroom entrance.”
+
+---
+
+**IMPORTANT:**
+At the very end of your response, **output a single JSON object (no extra text outside of the JSON block)** with exactly these six keys:
+
+```jsonc
+{
+  "identified_location":       "...",   // e.g. "Node 8 (facing west)" or "Column 6.5, Row 3"
+  "approximate_grid_position": "...",   // if you gave “Node X,” put "" (empty string); otherwise “Column __, Row __”
+  "facing_direction":          "...",   // “North”/“South”/“East”/“West”
+  "reasoning":                 "...",   // The full “Reasoning:” section as plain text
+  "fastest_route":             "...",   // Exactly the “Fastest Route to [DESTINATION]:” section, in plain text, using landmarks and turn‐by‐turns only
+  "full_answer":               "..."    // The entire answer you gave above (including “Answer:”, “Reasoning:”, and “Fastest Route:…”)
+}
