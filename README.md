@@ -21,7 +21,6 @@ This repository contains:
 
 1. Prompt templates for querying VLMs with a floor plan image, structured JSON metadata, and a query image.
 2. Jupyter notebooks to process images and metadata, interact with a local VLM (via [Ollama](https://ollama.com/)), and analyze the VLM’s output.
-3. Example configurations for evaluating the model’s ability to localize the image and give blind-friendly directions.
 
 ---
 
